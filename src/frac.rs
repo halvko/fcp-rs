@@ -1,5 +1,6 @@
 use std::fmt::Display;
 
+#[derive(Debug, Clone, Copy)]
 pub(crate) struct Frac {
     num: usize,
     den: usize,
@@ -45,7 +46,7 @@ impl Frac {
     }
 }
 
-impl std::fmt::Debug for Frac {
+impl std::fmt::Display for Frac {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}/((2^{}) - 1)", self.num, self.den)
     }
@@ -87,7 +88,7 @@ mod tests {
         let mut three_fourth = Frac::new();
         let mut half = three_fourth.split().unwrap();
         let quater = half.split().unwrap();
-        three_fourth.merge(quater);
+        three_fourth.merge(quater).unwrap();
 
         assert_eq!(3, three_fourth.num);
         assert_eq!(4, 1 << (three_fourth.den - 1));
